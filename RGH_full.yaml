@@ -1,0 +1,61 @@
+# ==========================================================
+# 🚀 RGH_full.yaml — Configuration Cobaya + CLASS + rgh_like
+# ==========================================================
+
+output: outputs/chains/test_chain
+debug: True
+force: True
+
+# ----------------------------------------------------------
+# 🔧 Modèle de base cosmologique
+# ----------------------------------------------------------
+theory:
+  classy:
+    path: null              # Cobaya trouvera CLASS via PYTHONPATH ou installation
+    extra_args:
+      output: tCl,pCl,lCl,mPk
+      l_max_scalars: 2500
+      P_k_max_h/Mpc: 3.0
+
+# ----------------------------------------------------------
+# 🔢 Paramètres cosmologiques
+# ----------------------------------------------------------
+params:
+  H0:
+    prior: {min: 50, max: 90}
+    ref: {dist: norm, loc: 67.4, scale: 1.0}
+    proposal: 1.0
+    latex: H_0
+  omega_b:
+    prior: {min: 0.02, max: 0.025}
+    ref: {dist: norm, loc: 0.0224, scale: 0.0001}
+    proposal: 0.0001
+    latex: \Omega_b
+  omega_cdm:
+    prior: {min: 0.1, max: 0.14}
+    ref: {dist: norm, loc: 0.12, scale: 0.005}
+    proposal: 0.001
+    latex: \Omega_{cdm}
+
+# ----------------------------------------------------------
+# 📏 Vraisemblance personnalisée (ton fichier Python local)
+# ----------------------------------------------------------
+likelihood:
+  my_rgh:
+    file: /media/lolo/Big-Disk-03/Partage/PDF/Sciences/Relativité/RGH/Grok-4.1.2-RGH/cobaya-RGH/my_likelihoods/rgh_like.py   # ← chemin absolu (important)
+    class: rgh_like                    # ← nom exact de ta classe
+    z_eff: 0.0                         # ← paramètre exposé dans ta classe
+
+# ----------------------------------------------------------
+# 🔄 Paramètres de sampling
+# ----------------------------------------------------------
+sampler:
+  mcmc:
+    Rminus1_stop: 0.01
+    max_tries: 10000
+
+# ----------------------------------------------------------
+# 📂 Sorties
+# ----------------------------------------------------------
+output_options:
+  products_path: outputs/
