@@ -4,6 +4,12 @@ import emcee
 import numpy as np
 import multiprocessing
 
+from bao_dataset import load_bao_dr16
+
+bao = load_bao_dr16()
+print(bao.head())
+
+
 # ==========================================================
 # 🔹 Ta vraisemblance personnalisée (ancienne rgh_like)
 # ==========================================================
@@ -70,7 +76,7 @@ if __name__ == "__main__":
     like = RGHLike(z_eff=0.0)
 
     ndim = 3
-    nwalkers = 8
+    nwalkers = 10
     nsteps = 500
 
     # Initialisation aléatoire des marcheurs autour des valeurs plausibles
@@ -320,5 +326,5 @@ table.scale(1.2, 1.3)
 
 plt.title("Comparaison Planck vs RGH – Moyennes ± σ et Tension", pad=10)
 plt.tight_layout()
-plt.savefig("comparison_table.png", dpi=300)
+plt.savefig("outputs/comparison_table.png", dpi=300)
 plt.show()

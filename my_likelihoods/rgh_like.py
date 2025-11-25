@@ -1,3 +1,5 @@
+# rgh_like.py
+
 from typing import Optional
 from cobaya.likelihood import Likelihood
 
